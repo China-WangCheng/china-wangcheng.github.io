@@ -1,0 +1,357 @@
+/* 确保页面内部锚点链接的平滑滚动行为 */
+html {
+    scroll-behavior: smooth;
+}
+
+/* 基础样式设置 */
+body {
+    font-family: 'Inter', sans-serif;
+    /* 设置默认字体 */
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    /* 防止动画引起的水平滚动条 */
+    /* 设置背景为径向渐变，营造深度感 */
+    background: radial-gradient(circle at top left, #1a222c, #0d1117);
+    color: #c9d1d9;
+    /* 默认文本颜色 */
+    opacity: 0;
+    /* 初始时隐藏 body，用于页面加载时的渐入动画 */
+    transition: opacity 0.5s ease-in-out;
+    /* 渐入动画过渡效果 */
+}
+
+/* 当 body 元素添加 'loaded' 类时，使其渐入显示 */
+body.loaded { 
+    opacity: 1;
+}
+
+/* Three.js 背景动画画布的样式 */
+#threejs-background {
+    position: fixed;
+    /* 固定在视口中 */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    /* 放在所有内容的下方 */
+    opacity: 0.5;
+    /* 设置为半透明，作为微妙的背景效果 */
+}
+
+/* 时间线项目的基础样式 */
+.timeline-item {
+    position: relative;
+    padding-left: 2.5rem;
+    /* 左侧留出空间给时间线标记 */
+    margin-bottom: 2rem;
+}
+
+
+/* 时间线项目间的垂直连接线 */
+.timeline-item::after {
+    content: '';
+    position: absolute;
+    left: 0.625rem;
+    /* 线的水平位置 */
+    top: 4px;
+    bottom: 4px;
+    width: 3px;
+    background-color: #30363d;
+    /* 线的颜色 */
+    z-index: 0;
+}
+
+/* 页面各主要章节的基础样式 */
+section {
+    min-height: 100vh;
+    /* 确保每个章节至少占据一个视口高度 */
+    padding: 4rem 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    scroll-margin-top: 80px;
+    /* 滚动时顶部固定导航栏的偏移量 */
+}
+
+/* 媒体查询：适配小屏幕设备（手机） */
+@media (max-width: 768px) {
+    .timeline-item {
+        padding-left: 1.5rem;
+    }
+
+    .timeline-item::before {
+        left: -0.5rem;
+        /* 调整标记位置 */
+    }
+
+    .timeline-item::after {
+        left: 0.5rem;
+        /* 调整线的位置 */
+    }
+}
+
+/* 模态（弹窗）的基础样式 */
+.modal {
+    display: none;
+    /* 默认隐藏，通过 JS 控制显示 */
+    position: fixed;
+    /* 固定定位 */
+    z-index: 1000;
+    /* 确保在最顶层 */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* 初始透明，用于背景渐入动画 */
+    justify-content: center;
+    align-items: center;
+}
+
+/* 显示模态时添加的类，触发背景渐入动画 */
+.modal.show-modal {
+    animation: fadeInModalBg 0.3s ease-out forwards;
+}
+
+/* 隐藏模态时添加的类，触发背景渐出动画 */
+.modal.hide-modal {
+    animation: fadeOutModalBg 0.3s ease-out forwards;
+}
+
+/* 模态背景渐入动画 */
+@keyframes fadeInModalBg {
+    from {
+        background-color: rgba(0, 0, 0, 0);
+    }
+
+    to {
+        background-color: rgba(0, 0, 0, 0.8);
+    }
+}
+
+/* 模态背景渐出动画 */
+@keyframes fadeOutModalBg {
+    from {
+        background-color: rgba(0, 0, 0, 0.8);
+    }
+
+    to {
+        background-color: rgba(0, 0, 0, 0);
+    }
+}
+
+/* 模态内容区域的样式 */
+.modal-content {
+    background-color: #161b22;
+    /* 深色背景 */
+    margin: auto;
+    padding: 2.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 5px 15px rgba(100, 255, 218, 0.3);
+    /* 强调色阴影 */
+    max-width: 800px;
+    width: 90%;
+    position: relative;
+    animation: fadeInModalContent 0.3s ease-out forwards;
+    /* 内容渐入动画 */
+    max-height: 90vh;
+    /* 限制最大高度 */
+    overflow-y: auto;
+    /* 内容超出时可垂直滚动 */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    /* 模态框滚动条隐藏样式 */
+}
+
+
+/* 模态内容渐入动画 */
+@keyframes fadeInModalContent {
+    from {
+        opacity: 0;
+        transform: scale(0.95) translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* 模态内容渐出动画 */
+@keyframes fadeOutModalContent {
+    from {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: scale(0.95) translateY(20px);
+    }
+}
+
+/* 当模态隐藏时，应用内容渐出动画 */
+.modal.hide-modal .modal-content {
+    animation: fadeOutModalContent 0.3s ease-out forwards;
+}
+
+/* 模态关闭按钮样式 */
+.close-button {
+    color: #c9d1d9;
+    position: absolute;
+    right: 1.25rem;
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    /* 颜色过渡效果 */
+}
+
+/* 关闭按钮悬停/聚焦时的颜色变化 */
+.close-button:hover,
+.close-button:focus {
+    color: #64ffda;
+    text-decoration: none;
+}
+
+/* 模态标题样式 */
+.modal-title {
+    color: #64ffda;
+    font-size: 2.25rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+/* 模态内小节标题样式 */
+.modal-section-title {
+    color: #64ffda;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    border-bottom: 1px solid #30363d;
+    /* 底部细线 */
+    padding-bottom: 0.5rem;
+}
+
+/* 模态内文本样式 */
+.modal-text {
+    color: #c9d1d9;
+    line-height: 1.6;
+    /* 行高 */
+    margin-bottom: 1rem;
+    text-align: justify;
+    /* 文本两端对齐 */
+    text-indent: 2em;
+    /* 首行缩进2字符 */
+}
+
+.modal-text ul {
+    list-style: disc;
+    /* 列表点 */
+    margin-left: 1.5rem;
+    padding-left: 0.5rem;
+}
+
+.modal-text li {
+    text-indent: 0;
+    margin-bottom: 0.5rem;
+}
+
+/* 导航链接激活状态的样式 */
+.nav-link-active {
+    color: #64ffda !important;
+    /* 强调色 */
+    border-bottom: 2px solid #64ffda;
+    /* 底部边框 */
+    padding-bottom: 4px;
+}
+
+/* 章节标题动画样式 */
+.section-title-animated {
+    position: relative;
+    display: inline-block;
+    /* 确保 ::after 伪元素的宽度正确 */
+    padding-bottom: 1rem;
+    /* 增加下划线与标题的距离 */
+    margin-bottom: 1.5rem;
+    /* 调整标题下方的间距 */
+    font-size: 2.25rem;
+    /* 主标题的字体大小 */
+}
+
+/* 章节标题的动画下划线 */
+.section-title-animated::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 0;
+    /* 初始宽度为 0 */
+    height: 3px;
+    background-color: #64ffda;
+    /* 强调色 */
+    transition: all 0.4s ease-out;
+    /* 动画过渡效果 */
+    transform: translateX(-50%);
+    /* 确保下划线居中 */
+}
+
+/* 当标题进入视口时，下划线展开 */
+.section-title-animated.in-view::after {
+    width: 80px;
+    /* 展开后的宽度 */
+}
+
+/* 增强的卡片悬停效果 */
+.card-hover-effect {
+    position: relative;
+    transition: all 0.3s ease-in-out;
+    /* 所有属性的过渡效果 */
+    overflow: hidden;
+    /* 隐藏溢出的伪元素 */
+}
+
+/* 悬停时边框光晕效果的伪元素 */
+.card-hover-effect::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 1rem;
+    /* 与卡片圆角保持一致 */
+    border: 2px solid transparent;
+    /* 渐变边框效果 */
+    background: linear-gradient(45deg, #64ffda, #00d4ff) border-box;
+    /* Webkit 兼容性处理，用于创建边框遮罩效果 */
+    -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    /* 初始时透明 */
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* 悬停时显示边框光晕 */
+.card-hover-effect:hover::before {
+    opacity: 1;
+}
+
+/* 悬停时卡片上浮和阴影效果 */
+.card-hover-effect:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 20px rgba(100, 255, 218, 0.2);
+}
+
+/* 悬停时卡片内 SVG 图标的动画效果 */
+.card-hover-effect:hover svg {
+    transform: translateY(-5px) scale(1.1);
+    transition: transform 0.3s ease-in-out;
+}
