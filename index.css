@@ -22,7 +22,7 @@ body {
 }
 
 /* 当 body 元素添加 'loaded' 类时，使其渐入显示 */
-body.loaded { 
+body.loaded {
     opacity: 1;
 }
 
@@ -331,6 +331,7 @@ section {
     /* 渐变边框效果 */
     background: linear-gradient(45deg, #64ffda, #00d4ff) border-box;
     /* Webkit 兼容性处理，用于创建边框遮罩效果 */
+    mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
     -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
