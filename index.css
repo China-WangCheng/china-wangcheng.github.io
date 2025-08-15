@@ -48,7 +48,6 @@ body.loaded {
     margin-bottom: 2rem;
 }
 
-
 /* 时间线项目间的垂直连接线 */
 .timeline-item::after {
     content: '';
@@ -65,8 +64,6 @@ body.loaded {
 
 /* 页面各主要章节的基础样式 */
 section {
-    min-height: 100vh;
-    /* 确保每个章节至少占据一个视口高度 */
     padding: 4rem 1rem;
     display: flex;
     flex-direction: column;
@@ -77,7 +74,7 @@ section {
     /* 滚动时顶部固定导航栏的偏移量 */
 }
 
-/* 媒体查询：适配小屏幕设备（手机） */
+/* 媒体查询：适配小屏幕设备 */
 @media (max-width: 768px) {
     .timeline-item {
         padding-left: 1.5rem;
@@ -92,6 +89,20 @@ section {
         left: 0.5rem;
         /* 调整线的位置 */
     }
+
+    .certifications-container {
+        justify-content: center;
+    }
+
+    .certificate-item {
+        width: 90%;
+        max-width: 300px;
+    }
+}
+
+#home {
+    min-height: 100vh;
+    /*首页高度为视口高度*/
 }
 
 /* 模态（弹窗）的基础样式 */
@@ -355,4 +366,50 @@ section {
 .card-hover-effect:hover svg {
     transform: translateY(-5px) scale(1.1);
     transition: transform 0.3s ease-in-out;
+}
+
+/* 技能证书部分样式 */
+.certifications {
+    background: linear-gradient(135deg, rgba(17, 24, 39, 0.95), rgba(31, 41, 55, 0.95));
+    border-radius: 1rem;
+    box-shadow: 0 10px 25px -5px rgba(100, 255, 218, 0.1), 0 8px 10px -6px rgba(100, 255, 218, 0.1);
+    margin: 4rem 0;
+    padding: 6rem 2rem;
+    border: 1px solid rgba(100, 255, 218, 0.2);
+}
+
+.certificate-item {
+    background-color: rgba(30, 41, 59, 0.8);
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    width: 400px;
+    transition: all 0.3s ease;
+    transform-style: preserve-3d;
+    border: 1px solid rgba(100, 255, 218, 0.3);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.certificate-item:hover {
+    box-shadow: 0 20px 25px -5px rgba(100, 255, 218, 0.1), 0 10px 10px -5px rgba(100, 255, 218, 0.04);
+    border-color: rgba(100, 255, 218, 0.5);
+}
+.certificate-item:hover .certificate-description {
+    color: rgba(100, 255, 218, 1); /* 使用与边框相同的青色系，增强视觉一致性 */
+    font-weight: 700;
+    transition: color 0.3s ease; /* 添加平滑过渡效果 */
+}
+.certificate-image {
+    width: 100%;
+    height: auto;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.certificate-description {
+    text-align: center;
+    color: #e0f2fe;
+    line-height: 1.2;
+    font-weight: 500;
+    text-shadow: 0 0 10px rgba(100, 255, 218, 0.1);
 }

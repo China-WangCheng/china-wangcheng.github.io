@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>王成的个人简历</title>
+    <title>王成的简历</title>
     <!-- 引入 Tailwind CSS CDN，用于快速构建响应式和美观的界面 -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- 引入 Inter 字体，提供现代和清晰的文本显示效果 -->
@@ -34,6 +34,9 @@
                 </li>
                 <li><a href="#projects"
                         class="nav-link text-[#c9d1d9] hover:text-[#64ffda] transition duration-300 ease-in-out font-semibold">项目经历</a>
+                </li>
+                <li><a href="#certifications"
+                        class="nav-link text-[#c9d1d9] hover:text-[#64ffda] transition duration-300 ease-in-out font-semibold">技能证书</a>
                 </li>
             </ul>
         </nav>
@@ -90,7 +93,6 @@
             <div id="work-timeline" class="relative">
                 <!-- 时间线项目将由 JavaScript 动态填充 -->
             </div>
-            <div class="section-indicator bottom-4"></div>
         </section>
 
         <!-- 项目经历章节 -->
@@ -98,13 +100,20 @@
             <!-- 章节标题，带动画下划线 -->
             <h2 class="text-4xl font-bold text-center mb-12 text-[#64ffda] section-title-animated"
                 data-section-id="projects">项目经历</h2>
-
             <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- 项目卡片将由 JavaScript 动态填充 -->
             </div>
-            <div class="section-indicator bottom-4"></div>
         </section>
-        
+
+        <!-- 技能证书部分 -->
+        <section id="certifications" class="certifications relative p-10 max-w-6xl mx-auto w-full">
+            <h2 class="text-4xl font-bold text-center mb-12 text-[#64ffda] section-title-animated"
+                data-section-id="certifications">技能证书</h2>
+            <div id="certifications-container" class="certifications-container flex flex-wrap justify-center gap-8">
+                <!-- 证书内容将通过JavaScript动态填充 -->
+            </div>
+        </section>
+
     </main>
 
     <!-- 项目详情模态框 -->
@@ -117,7 +126,7 @@
                 <p id="modalTimeRole" class="text-sm text-[#8b949e] text-center mb-4"></p>
             </div>
             <!-- 具体内容 -->
-             <div id="dynamic-content-container"></div> 
+            <div id="dynamic-content-container"></div>
         </div>
     </div>
     <script src="index.js"></script>

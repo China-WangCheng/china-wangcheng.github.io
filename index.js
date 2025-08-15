@@ -16,6 +16,7 @@ window.onload = function () {
     populateHomeStrengths(); // 填充首页核心优势数据
     populateWorkExperience(); // 填充工作经历数据
     populateProjects(); // 填充项目经历数据
+    populateCertifications(); // 填充技能证书数据
     setupScrollAnimations(); // 设置滚动动画效果
     setupActiveNavLinkHighlight(); // 设置导航链接高亮效果
 };
@@ -147,6 +148,7 @@ function animateThreeJS() {
 }
 
 // --- 章节数据定义 ---
+// 核心优势
 const coreAdvantages = [
     {
         title: '技术能力',
@@ -304,6 +306,13 @@ const projects = [
     },
 
 ];
+// 技能证书 
+const certifications = [
+    {
+        imageUrl: 'https://i.postimg.cc/PxWVmpBN/image.jpg',
+        description: "软件设计师"
+    },
+];
 
 /**
  * @function populateHomeStrengths
@@ -383,6 +392,28 @@ function populateProjects() {
             openProjectModal(projects[index]); // 打开对应项目的模态框
         });
     });
+}
+/**
+ * @function populateCertifications
+ * @description 填充技能证书内容
+ */
+function populateCertifications() {
+    const container = document.getElementById('certifications-container');
+    if (!container) return;
+
+    // 清空容器
+    container.innerHTML = '';
+
+    let html = '';
+    certifications.forEach((cert, index) => {
+        html += `
+            <div class="certificate-item" data-index="${index}">
+                <img src="${cert.imageUrl}" alt="${cert.description} 技能证书" class="certificate-image">
+                <p class="certificate-description">${cert.description}</p>
+            </div>
+        `;
+    });
+    container.innerHTML = html;
 }
 
 // --- 项目详情模态框相关函数和变量 ---
