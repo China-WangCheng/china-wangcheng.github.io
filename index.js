@@ -1,4 +1,3 @@
-
 // 全局 Three.js 场景变量
 let scene, camera, renderer, particles, particleMaterial;
 // 鼠标位置用于控制相机移动
@@ -309,7 +308,7 @@ const projects = [
 // 技能证书 
 const certifications = [
     {
-        imageUrl: 'https://i.postimg.cc/PxWVmpBN/image.jpg',
+        imageUrl: './img/软件设计师.jpg',
         description: "软件设计师"
     },
 ];
